@@ -39,7 +39,7 @@
                                             @foreach($data as $d)
                                             <tr>
                                                 <td>{{$d->id}}</td>
-                                                <td><img width="100" src="{{asset('storage/app/'.$d->banner_src)}}" /></td>
+                                                <td><img width="100" src="{{asset('uploads/banner/'.$d->banner_src)}}" /></td>
                                                 <td>{{$d->alt_text}}</td>
                                                 <td>{{$d->publish_status}}</td>
                                                 <td>
@@ -58,16 +58,16 @@
                 </div>
                 <!-- /.container-fluid -->
 
-@section('scripts')
-<!-- Custom styles for this page -->
-<link href="{{asset('public')}}/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-<!-- Page level plugins -->
-<script src="{{asset('public')}}/vendor/datatables/jquery.dataTables.min.js"></script>
-<script src="{{asset('public')}}/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+                @section('scripts')
+                <!-- Custom styles for this page -->
+                <link href="{{asset('public')}}/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+                <!-- Page level plugins -->
+                <script src="{{asset('public')}}/vendor/datatables/jquery.dataTables.min.js"></script>
+                <script src="{{asset('public')}}/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
-<!-- Page level custom scripts -->
-<script src="{{asset('public')}}/js/demo/datatables-demo.js"></script>
+                <!-- Page level custom scripts -->
+                <script src="{{asset('public')}}/js/demo/datatables-demo.js"></script>
 
-@endsection
+                @endsection
 
 @endsection

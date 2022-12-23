@@ -6,7 +6,7 @@
 	  <div class="carousel-inner">
 	  	@foreach($banners as $index => $banner)
 	    <div class="carousel-item @if($index==0) active @endif">
-	      <img src="{{asset('storage/app/'.$banner->banner_src)}}" class="d-block w-100" alt="{{$banner->alt_text}}">
+	      <img src="{{asset('uploads/banner/'.$banner->banner_src)}}" class="d-block w-100" alt="{{$banner->alt_text}}">
 	    </div>
 	    @endforeach
 	  </div>
@@ -77,7 +77,7 @@
 			  <blockquote class="blockquote">
 			    <p>{{$testi->testi_cont}}</p>
 			  </blockquote>
-			  
+
 			</figure>
 	    </div>
 	    @endforeach
@@ -96,9 +96,9 @@
 
 
     <!-- LightBox css -->
-<link rel="stylesheet" type="text/css" href="{{asset('public/vendor')}}/lightbox2-2.11.3/dist/css/lightbox.min.css" />
+<link rel="stylesheet" type="text/css" href="{{asset('/vendor')}}/lightbox2-2.11.3/dist/css/lightbox.min.css" />
 <!-- LightBox Js -->
-<script type="text/javascript" src="{{asset('public/vendor')}}/lightbox2-2.11.3/dist/js/lightbox.min.js"></script>
+<script type="text/javascript" src="{{asset('/vendor/lightbox2-2.11.3/dist/js/lightbox.min.js')}}"></script>
 <style type="text/css">
 	.hide{
 		display: none;

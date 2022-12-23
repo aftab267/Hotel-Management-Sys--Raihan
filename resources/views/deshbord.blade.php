@@ -136,7 +136,7 @@
     <div class="col-xl-4 col-lg-5">
         <div class="card shadow mb-4">
             <!-- Card Header - Dropdown -->
-           
+
             <div
                 class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
@@ -263,7 +263,7 @@
                     </div>
                 </div>
             </div>
-           
+
             <div class="col-lg-6 mb-4">
                 <div class="card bg-dark text-white shadow">
                     <div class="card-body">
@@ -318,7 +318,7 @@
 <!-- /.container-fluid -->
 
  <!-- Page level plugins -->
- <script src="{{asset('public')}}/vendor/chart.js/Chart.min.js"></script>
+ <script src="{{asset('/vendor/chart.js/Chart.min.js')}}"></script>
 
  <script type="text/javascript">
     var _labels={!! json_encode($labels) !!};
@@ -327,6 +327,6 @@
 </script>
 
 <!-- Page level custom scripts -->
-<script src="{{asset('public')}}/js/demo/chart-area-demo.js"></script>
-<script src="{{asset('public')}}/js/demo/chart-pie-demo.js"></script>
+<script src="{{asset('/js/demo/chart-area-demo.js')}}"></script>
+<script src="{{asset('/js/demo/chart-pie-demo.js')}}"></script>
 @endsection

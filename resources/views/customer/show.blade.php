@@ -20,7 +20,7 @@
                                     </tr>
                                     <tr>
                                         <th>Photo</th>
-                                        <td><img width="100" src="{{asset('storage/app/'.$data->photo)}}" /></td>
+                                        <td><img src="{{asset('uploads/customer/'.$data->photo) }}" width= '80'  alt=""> </td>
                                     </tr>
                                     <tr>
                                         <th>Email</th>

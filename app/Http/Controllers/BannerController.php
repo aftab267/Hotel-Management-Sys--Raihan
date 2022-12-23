@@ -42,19 +42,28 @@ class BannerController extends Controller
             'alt_text'=>'required',
         ]);
 
-        if($request->hasFile('banner_src')){
-            $imgPath=$request->file('banner_src')->store('public/imgs');
-        }else{
-            $imgPath="null";
-        }
-        
+        // if($request->hasFile('banner_src')){
+        //     $imgPath=$request->file('banner_src')->store('public/imgs');
+        // }else{
+        //     $imgPath="null";
+        // }
+
         $data=new Banner;
-        $data->banner_src=$imgPath;
+        $data->banner_src=$request->banner_src;
         $data->alt_text=$request->alt_text;
         $data->publish_status=$request->publish_status;
         $data->save();
 
-        return redirect('admin/banner/create')->with('success','Data has been added.');
+        if($request->hasfile('banner_src')){
+            $file=$request->file('banner_src');
+            $extention=$file->getClientOriginalExtension();
+            $filename=time().'.'.$extention;
+            $file->move('uploads/banner/',$filename);
+            $data->banner_src=$filename;
+            }
+            $data->save();
+
+        return redirect('admin/banner/create')->with('success','Banner has been added.');
     }
 
     /**
@@ -76,7 +85,7 @@ class BannerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {   
+    {
         $data=Banner::find($id);
         return view('banner.edit',['data'=>$data]);
     }
@@ -91,21 +100,35 @@ class BannerController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'prev_photo'=>'required',
+            'banner_src'=>'required',
             'alt_text'=>'required',
         ]);
 
-        if($request->hasFile('banner_src')){
-            $imgPath=$request->file('banner_src')->store('public/imgs');
-        }else{
-            $imgPath=$request->prev_photo;
-        }
-        
+        // if($request->hasFile('banner_src')){
+        //     $imgPath=$request->file('banner_src')->store('public/imgs');
+        // }else{
+        //     $imgPath=$request->prev_photo;
+        // }
+
         $data=Banner::find($id);
-        $data->banner_src=$imgPath;
+        $data->banner_src=$request->banner_src;
         $data->alt_text=$request->alt_text;
         $data->publish_status=$request->publish_status;
         $data->save();
+
+        $destination='uploads/banner/'.$data->banner_src;
+        if($request->hasfile('banner_src'))
+           {
+            if(file_exists($destination)){
+                File::delete($destination);
+            }
+            $file=$request->file('banner_src');
+            $extention=$file->getClientOriginalExtension();
+            $filename=time().'.'.$extention;
+            $file->move('uploads/banner/',$filename);
+            $data->banner_src=$filename;
+            }
+            $data->update();
 
 
 

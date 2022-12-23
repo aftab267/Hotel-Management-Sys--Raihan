@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Customer;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class CustomerController extends Controller
 {
@@ -46,11 +47,12 @@ class CustomerController extends Controller
             'mobile'=>'required',
         ]);
 
-        if($request->hasFile('photo')){
-            $imgPath=$request->file('photo')->store('public/imgs');
-        }else{
-            $imgPath="null";
-        }
+        // if($request->hasFile('photo')){
+        //     $imgPath=$request->file('photo')->store('public/imgs');
+        // }else{
+        //     $imgPath="null";
+        // }
+
 
         $data=new Customer;
         $data->full_name=$request->full_name;
@@ -58,8 +60,17 @@ class CustomerController extends Controller
         $data->password=sha1($request->password);
         $data->mobile=$request->mobile;
         $data->address=$request->address;
-        $data->photo=$imgPath;
+        $data->photo=$request->photo;
         $data->save();
+
+        if($request->hasfile('photo')){
+            $file=$request->file('photo');
+            $extention=$file->getClientOriginalExtension();
+            $filename=time().'.'.$extention;
+            $file->move('uploads/customer/',$filename);
+            $data->photo=$filename;
+            }
+            $data->save();
 
         // $ref=$request->ref;
         // if($ref=='front'){
@@ -110,19 +121,33 @@ class CustomerController extends Controller
             'mobile'=>'required',
         ]);
 
-        if($request->hasFile('photo')){
-            $imgPath=$request->file('photo')->store('public/imgs');
-        }else{
-            $imgPath=$request->prev_photo;
-        }
-        
+        // if($request->hasFile('photo')){
+        //     $imgPath=$request->file('photo')->store('public/imgs');
+        // }else{
+        //     $imgPath=$request->prev_photo;
+        // }
+
         $data=Customer::find($id);
         $data->full_name=$request->full_name;
         $data->email=$request->email;
         $data->mobile=$request->mobile;
         $data->address=$request->address;
-        $data->photo=$imgPath;
+        $data->photo=$request->photo;
         $data->save();
+
+        $destination='uploads/customer/'.$data->photo;
+        if($request->hasfile('photo'))
+           {
+            if(file_exists($destination)){
+                File::delete($destination);
+            }
+            $file=$request->file('photo');
+            $extention=$file->getClientOriginalExtension();
+            $filename=time().'.'.$extention;
+            $file->move('uploads/customer/',$filename);
+            $data->photo=$filename;
+            }
+            $data->update();
 
         return redirect('admin/customer/'.$id.'/edit')->with('success','Data has been updated.');
     }
